@@ -1,0 +1,46 @@
+﻿@model List<UserRolesViewModel>
+
+@{
+    ViewData["Title"] = "Manage Roles";
+    var UserId = ViewBag.UserId;
+}
+
+<form method="post" style="height:60vh">
+    <div class="card m-3">
+        <div class="card-header">
+            Manage User Roles
+        </div>
+        <div class="card-body">
+            @if (Model.Any())
+            {
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="card-title">
+                        <input asp-for="@Model[i].RoleId" class="form-check-input" hidden>
+                        <input asp-for="@Model[i].RoleName" class="form-check-input" hidden>
+                        <input asp-for="@Model[i].IsSelected" class="form-check-input">
+                        <label asp-for="@Model[i].IsSelected" class="form-check-label">@Model[i].RoleName</label>
+                    </div>
+                }
+            }
+            else
+            {
+                <h5 class="card-title">There is no Roles.</h5>
+            }
+
+        </div>
+        <div class="card-footer">
+            <input type="submit" asp-route-UserId="@UserId" class="btn btn-outline-warning" value="Update">
+            <a asp-controller="Role" asp-action="EditUser"
+               asp-route-ID="@UserId" class="btn btn-outline-success">Cancel</a>
+        </div>
+    </div>
+</form>
+@section Nav{
+    <li class="nav-item">
+        <a class="text-danger fw-bold m-2" asp-controller="Department" asp-action="Index">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="text-danger fw-bold m-2" asp-controller="Product" asp-action="Index">Shop</a>
+    </li>
+}
